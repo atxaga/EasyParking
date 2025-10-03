@@ -1,0 +1,2 @@
+# EasyParking
+Aplikazioa parkina aurkitzeko
