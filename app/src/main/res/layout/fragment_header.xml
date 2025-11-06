@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:padding="12dp"
+    android:elevation="6dp"
+    android:gravity="center_vertical">
+
+    <!-- Foto de perfil -->
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_person"
+    android:background="@drawable/profile_circle_bg"
+    android:padding="8dp"
+    android:scaleType="centerCrop"
+    android:contentDescription="Foto de perfil" />
+
+    <!-- Nombre del usuario -->
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="12dp"
+        android:text="Usuario"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Menú tipo hamburguesa -->
+    <ImageButton
+        android:id="@+id/menuIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_menu"
+        android:contentDescription="Menú"
+        app:tint="@color/black" />
+</LinearLayout>
