@@ -1,2 +1,2 @@
 # EasyParking
-Aplikazioa parkina aurkitzeko
+Aplikazio honek hiriko aparkalekuetako plazen egoera denbora errealean erakusten du. Erabiltzaileen arteko lankidetzan oinarritzen da: norbaitek autoa aparkatzen duenean aplikazioan adierazten du, eta irteten denean berriz seinalatzen du. Horrela, une bakoitzean zenbat plaza libre dauden jakin daiteke sektore bakoitzean. Sistema partekatu honi esker, erabiltzaileek errazago aurki ditzakete aparkaleku libreak eta denboran zein erregaietan aurrezki handia lortzen da. Hasiera baten, erabitzaileen bidez jakingo plazak libre dauden, baina aurrerago udaletxeekin kolaborazioa proposatuko da parkinetan sensoreak jartzeko eta horrela aplikazioa zehatzagoa izango da eta jakin daiteke plaza guztien egorea. 
