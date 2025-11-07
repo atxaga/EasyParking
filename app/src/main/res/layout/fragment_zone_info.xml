@@ -33,5 +33,36 @@
             android:textColor="@android:color/white"
             android:textSize="14sp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/aparkatu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="Aparkatu"
+                android:textColor="#000000"
+                android:background="@drawable/bg_button_rounded"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/utzi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="Utzi Aparkalekua"
+                android:textColor="#000000"
+                android:background="@drawable/bg_button_rounded"/>
+        </LinearLayout>
+
+
+
+
     </LinearLayout>
 </FrameLayout>

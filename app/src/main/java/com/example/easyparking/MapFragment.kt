@@ -1,6 +1,6 @@
 package com.example.easyparking
 
-import android.graphics.Color
+import android.graphics.*
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +11,7 @@ import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.Polygon
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -37,7 +38,6 @@ class MapFragment : Fragment() {
 
         loadGeoJsonZones()
 
-        // Ocultar panel al tocar fuera de zonas
         map.setOnTouchListener { _, _ ->
             val zoneInfo = requireActivity()
                 .supportFragmentManager
@@ -54,7 +54,6 @@ class MapFragment : Fragment() {
             val inputStream = requireContext().assets.open("zonas.geojson")
             val jsonText = BufferedReader(InputStreamReader(inputStream)).use { it.readText() }
             val json = JSONObject(jsonText)
-
             val features = json.getJSONArray("features")
 
             for (i in 0 until features.length()) {
@@ -75,36 +74,37 @@ class MapFragment : Fragment() {
 
                 val polygon = Polygon(map)
                 polygon.points = points
-                polygon.fillColor = Color.argb(80, 100, 149, 237) // Azul transparente
-                polygon.strokeColor = Color.parseColor("#87CEEB") // Azul cielo
+                polygon.fillColor = Color.argb(80, 100, 149, 237)
+                polygon.strokeColor = Color.parseColor("#87CEEB")
                 polygon.strokeWidth = 6.0f
 
+                val center = getPolygonCenter(points)
+                val randomFreeSpots = (5..30).random()
+
+                // ✅ Crear marcador con texto dibujado
+                val label = Marker(map)
+                label.position = center
+                label.icon = createTextIcon(randomFreeSpots.toString())
+                label.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
+
                 polygon.setOnClickListener { p, _, _ ->
-                    // Restaurar color anterior
                     selectedPolygon?.fillColor = Color.argb(80, 100, 149, 237)
-
-                    // Marcar nuevo seleccionado
                     selectedPolygon = p
-                    p.fillColor = Color.argb(120, 255, 255, 255) // Blanco semitransparente
+                    p.fillColor = Color.argb(120, 255, 255, 255)
 
-                    // Mostrar panel con información
                     val zoneInfo = requireActivity()
                         .supportFragmentManager
                         .findFragmentById(R.id.zoneInfoFragment) as? ZoneInfoFragment
-
-                    val randomFreeSpots = (5..30).random() // Ejemplo: número aleatorio de sitios
                     zoneInfo?.updateZoneInfo(zoneName, randomFreeSpots)
 
-                    // Hacer zoom y centrar el mapa
-                    val center = getPolygonCenter(points)
                     map.controller.animateTo(center)
                     map.controller.setZoom(17.0)
-
                     map.invalidate()
                     true
                 }
 
                 map.overlays.add(polygon)
+                map.overlays.add(label)
             }
 
             map.invalidate()
@@ -114,7 +114,45 @@ class MapFragment : Fragment() {
         }
     }
 
-    // Calcula el centro de un polígono
+    // 🟢 Dibuja el número como imagen para usar como icono
+    private fun createTextIcon(text: String): android.graphics.drawable.BitmapDrawable {
+        val textPaint = Paint().apply {
+            color = Color.WHITE
+            textSize = 42f // antes 70f
+            isFakeBoldText = true
+            textAlign = Paint.Align.CENTER
+            typeface = Typeface.DEFAULT_BOLD
+            setShadowLayer(6f, 0f, 0f, Color.argb(150, 0, 0, 0))
+            isAntiAlias = true
+        }
+
+        val backgroundPaint = Paint().apply {
+            color = Color.parseColor("#1ABC9C") // verde agua moderno
+            style = Paint.Style.FILL
+            isAntiAlias = true
+        }
+
+        val padding = 20 // antes 40
+        val textWidth = textPaint.measureText(text)
+        val textHeight = textPaint.descent() - textPaint.ascent()
+        val width = (textWidth + padding * 2).toInt()
+        val height = (textHeight + padding * 2).toInt()
+
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        val rect = RectF(0f, 0f, width.toFloat(), height.toFloat())
+        canvas.drawRoundRect(rect, 30f, 30f, backgroundPaint)
+
+        val xPos = width / 2f
+        val yPos = height / 2f - (textPaint.descent() + textPaint.ascent()) / 2
+        canvas.drawText(text, xPos, yPos, textPaint)
+
+        return android.graphics.drawable.BitmapDrawable(resources, bitmap)
+    }
+
+
+
     private fun getPolygonCenter(points: List<GeoPoint>): GeoPoint {
         var lat = 0.0
         var lon = 0.0
