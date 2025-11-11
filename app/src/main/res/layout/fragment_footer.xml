@@ -4,17 +4,137 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="horizontal"
-    android:padding="16dp"
-    android:gravity="center_vertical">
+    android:gravity="center">
 
-    <TextView
-        android:id="@+id/footerText"
-        android:layout_width="match_parent"
+    <!-- Bilatu -->
+    <LinearLayout
+        android:id="@+id/bilatuLayout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:text="EasyParking"
-        android:textColor="@android:color/black"
-        android:textSize="16sp" />
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_margin="10dp">
+
+        <View
+            android:id="@+id/bilatuIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/cyan"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/bilatuIcon"
+            android:layout_width="25dp"
+            android:layout_height="40dp"
+            android:src="@drawable/lupa" />
+
+        <TextView
+            android:id="@+id/bilatuFooter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:text="Bilatu"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <!-- Aparkatuak -->
+    <LinearLayout
+        android:id="@+id/aparkatuLayout"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_margin="10dp">
+
+        <View
+            android:id="@+id/aparkatuIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/cyan"
+            android:visibility="gone" />
+        <ImageView
+            android:id="@+id/aparkatuakIcon"
+            android:layout_width="25dp"
+            android:layout_height="40dp"
+            android:src="@drawable/parking" />
+
+        <TextView
+            android:id="@+id/aparkatuakFooter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:text="Aparkatuak"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <!-- Autoak -->
+    <LinearLayout
+        android:id="@+id/autoakLayout"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_margin="10dp">
+
+        <View
+            android:id="@+id/autoakIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/cyan"
+            android:visibility="gone" />
+        <ImageView
+            android:id="@+id/autoakIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/coche" />
+
+        <TextView
+            android:id="@+id/autoakFooter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:text="Autoak"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <!-- Kontua -->
+    <LinearLayout
+        android:id="@+id/kontuaLayout"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_margin="10dp">
+        <View
+            android:id="@+id/kontuaIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/cyan"
+            android:visibility="gone" />
+        <ImageView
+            android:id="@+id/kontuaIcon"
+            android:layout_width="25dp"
+            android:layout_height="40dp"
+            android:src="@drawable/perfil" />
+
+        <TextView
+            android:id="@+id/kontuaFooter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:text="Kontua"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -18,8 +18,6 @@ class MainActivity : AppCompatActivity() {
                 // Fragmento del mapa
                 replace(R.id.mapFragmentContainer, MapFragment())
 
-                // Fragmento del footer
-                replace(R.id.footerFragment, FooterFragment())
             }
         }
     }
