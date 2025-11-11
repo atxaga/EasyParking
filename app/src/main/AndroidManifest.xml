@@ -21,17 +21,23 @@
             android:value=""
             />
         <activity android:name=".AparkatuActivity" />
-
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            tools:ignore="MissingClass">
+            android:name=".LoginActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".RegisterActivity"/>
+        <activity android:name=".CarsActivity" />
+        <activity android:name=".ParkedCarsActivity"/>
+
+        <activity
+            android:name=".MainActivity"
+
+        />
     </application>
 
 </manifest>

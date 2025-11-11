@@ -5,7 +5,6 @@
     android:orientation="horizontal"
     android:background="@color/white"
     android:padding="12dp"
-    android:elevation="6dp"
     android:gravity="center_vertical">
 
     <!-- Foto de perfil -->
