@@ -3,6 +3,7 @@ import org.gradle.kotlin.dsl.implementation
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -56,5 +57,11 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.3.0")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+
+    // Firebase SDKs
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
 
 }

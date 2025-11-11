@@ -1,8 +1,11 @@
 package com.example.easyparking
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,5 +23,7 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+
+
     }
 }

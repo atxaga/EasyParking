@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "751759180589",
+    "firebase_url": "https://easyparking-2be12-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "easyparking-2be12",
+    "storage_bucket": "easyparking-2be12.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:751759180589:android:ad4a18e26a1807dc4849a4",
+        "android_client_info": {
+          "package_name": "com.company.EasyParking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBA_NVpvkjfZLQfh3AMt80raiyIEV_7lv8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:751759180589:android:f0cff9dc94db72a64849a4",
+        "android_client_info": {
+          "package_name": "com.example.easyparking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBA_NVpvkjfZLQfh3AMt80raiyIEV_7lv8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
