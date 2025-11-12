@@ -13,7 +13,7 @@
     <TextView
         android:id="@+id/logo"
         android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_height="80dp"
         android:text="EasyParking"
         android:textStyle="bold"
         android:textSize="20sp"
@@ -24,10 +24,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center_vertical"
         android:padding="24dp"
         android:background="@drawable/bg_card"
         android:elevation="8dp"
         android:clipToPadding="false">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Erregistratu"
+            android:layout_margin="30sp"
+            android:textSize="25dp"
+            android:textAlignment="center"
+            android:textStyle="bold"/>
 
         <!-- EMAIL -->
         <EditText
