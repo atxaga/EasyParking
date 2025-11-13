@@ -1,25 +1,29 @@
 package com.example.easyparking
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var webView: WebView
-
-    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        webView = findViewById(R.id.webView)
-        webView.settings.javaScriptEnabled = true
-        webView.webViewClient = WebViewClient()
+        // Cargamos los fragmentos solo la primera vez
+        if (savedInstanceState == null) {
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
 
-        // Carga el mapa desde los assets
-        webView.loadUrl("file:///android_asset/parking_map.html")
+                // Fragmento del mapa
+                replace(R.id.mapFragmentContainer, MapFragment())
+
+            }
+        }
+
+
     }
 }

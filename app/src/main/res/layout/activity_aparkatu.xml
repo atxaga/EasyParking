@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -12,33 +11,25 @@
         <!-- HEADER -->
         <fragment
             android:id="@+id/headerFragment"
-            android:layout_margin="16dp"
             android:name="com.example.easyparking.HeaderFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <FrameLayout
-            android:id="@+id/mapFragmentContainer"
+        <fragment
+            android:id="@+id/fr_aparkatu"
+            android:name="com.example.easyparking.AparkatuFragment"
+
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
         <!-- FOOTER -->
         <fragment
-            android:layout_margin="16dp"
-
             android:id="@+id/footerFragment"
             android:name="com.example.easyparking.FooterFragment"
             android:layout_width="match_parent"
-            android:layout_height="110dp" />
+            android:layout_height="60dp" />
     </LinearLayout>
 
-    <fragment
-        android:id="@+id/zoneInfoFragment"
-        android:name="com.example.easyparking.ZoneInfoFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="160dp"
-        android:layout_marginHorizontal="16dp" />
+
 </FrameLayout>

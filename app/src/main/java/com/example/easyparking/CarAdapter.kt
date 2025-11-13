@@ -1,0 +1,40 @@
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.easyparking.R
+
+data class Car(
+    val brand: String,
+    val model: String,
+    val plate: String
+)
+
+class CarAdapter(private val cars: List<Car>) :
+    RecyclerView.Adapter<CarAdapter.CarViewHolder>() {
+
+    inner class CarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val brandText: TextView = itemView.findViewById(R.id.brandText)
+        val modelText: TextView = itemView.findViewById(R.id.modelText)
+        val plateText: TextView = itemView.findViewById(R.id.plateText)
+        val carIcon: ImageView = itemView.findViewById(R.id.carIcon)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_car, parent, false)
+        return CarViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: CarViewHolder, position: Int) {
+        val car = cars[position]
+        holder.brandText.text = car.brand
+        holder.modelText.text = car.model
+        holder.plateText.text = car.plate
+
+    }
+
+    override fun getItemCount(): Int = cars.size
+}
