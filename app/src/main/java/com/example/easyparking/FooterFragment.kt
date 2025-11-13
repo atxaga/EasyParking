@@ -18,6 +18,8 @@ class FooterFragment : Fragment() {
     private lateinit var autoakButton: View
     private lateinit var bilatuButton: View
     private lateinit var aparkatuakButton: View
+    private lateinit var kontuaButton: View
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,17 +35,13 @@ class FooterFragment : Fragment() {
         autoakButton = view.findViewById(R.id.autoakLayout)
         bilatuButton = view.findViewById(R.id.bilatuLayout)
         aparkatuakButton = view.findViewById(R.id.aparkatuLayout)
+        kontuaButton = view.findViewById(R.id.kontuaLayout)
 
-        setActiveTab("bilatu")
-
-        view.findViewById<View>(R.id.bilatuLayout).setOnClickListener { setActiveTab("bilatu") }
-        view.findViewById<View>(R.id.aparkatuLayout).setOnClickListener { setActiveTab("aparkatuak") }
-        view.findViewById<View>(R.id.autoakLayout).setOnClickListener { setActiveTab("autoak") }
-        view.findViewById<View>(R.id.kontuaLayout).setOnClickListener { setActiveTab("kontua") }
 
         autoakButton.setOnClickListener { autoakview() }
         bilatuButton.setOnClickListener { bilatuView() }
         aparkatuakButton.setOnClickListener { aparkatuakView() }
+        kontuaButton.setOnClickListener { kontuaView() }
 
 
 
@@ -60,12 +58,14 @@ class FooterFragment : Fragment() {
     fun autoakview(){
         val intent = Intent(requireContext(), CarsActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        setActiveTab("autoak")
 
         startActivity(intent)
     }
     fun bilatuView(){
         val intent = Intent(requireContext(), MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        setActiveTab("bilatu")
 
         startActivity(intent)
 
@@ -73,6 +73,15 @@ class FooterFragment : Fragment() {
     fun aparkatuakView(){
         val intent = Intent(requireContext(), ParkedCarsActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        setActiveTab("aparkatuak")
+
+        startActivity(intent)
+
+    }
+    fun kontuaView(){
+        val intent = Intent(requireContext(), ActivityCuenta::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        setActiveTab("kontua")
 
         startActivity(intent)
 
