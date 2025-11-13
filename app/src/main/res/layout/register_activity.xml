@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="24dp"
+    android:gravity="center"
+    tools:context=".RegisterActivity">
+
+    <!-- LOGO -->
+    <TextView
+        android:id="@+id/logo"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:text="EasyParking"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:scaleType="centerInside"/>
+
+    <!-- CARD CON FORMULARIO -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:padding="24dp"
+        android:background="@drawable/bg_card"
+        android:elevation="8dp"
+        android:clipToPadding="false">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Erregistratu"
+            android:layout_margin="30sp"
+            android:textSize="25dp"
+            android:textAlignment="center"
+            android:textStyle="bold"/>
+
+        <!-- EMAIL -->
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Email"
+            android:padding="12dp"
+            android:background="@drawable/bg_edittext"
+            android:inputType="textEmailAddress"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- PASSWORD -->
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Pasahitza"
+            android:padding="12dp"
+            android:background="@drawable/bg_edittext"
+            android:inputType="textPassword"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="24dp"/>
+
+        <EditText
+            android:id="@+id/passwordEditTextErrepikatu"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Pasahitza errepikatu"
+            android:padding="12dp"
+            android:background="@drawable/bg_edittext"
+            android:inputType="textPassword"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- LOGIN BUTTON -->
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Erregistratu"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/cyan"
+            android:fontFamily="sans-serif-medium"
+            android:textAllCaps="false"
+            android:letterSpacing="0.05"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- LINK DE REGISTRO -->
+        <TextView
+            android:id="@+id/registerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Kontua baduzu? Saioa Hasi"
+            android:textColor="@color/cyan"
+            android:textSize="14sp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+</LinearLayout>
