@@ -33,6 +33,7 @@
         <activity android:name=".RegisterActivity"/>
         <activity android:name=".CarsActivity" />
         <activity android:name=".ParkedCarsActivity"/>
+        <activity android:name=".ActivityCuenta"/>
 
         <activity
             android:name=".MainActivity"
