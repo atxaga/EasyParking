@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -8,14 +9,10 @@
         android:layout_width="match_parent"
         android:padding="16dp"
         android:background="@color/white"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <!-- HEADER -->
-        <fragment
-            android:id="@+id/headerFragment"
-            android:name="com.example.easyparking.HeaderFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+
 
         <fragment
             android:id="@+id/fr_aparkatu"
@@ -26,12 +23,15 @@
             android:layout_weight="1" />
 
         <!-- FOOTER -->
-        <fragment
-            android:id="@+id/footerFragment"
-            android:name="com.example.easyparking.FooterFragment"
-            android:layout_width="match_parent"
-            android:layout_height="110dp" />
-    </LinearLayout>
 
+    </LinearLayout>
+    <fragment
+
+        android:id="@+id/footerFragment"
+        android:name="com.example.easyparking.FooterFragment"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+
+        android:layout_height="120dp" />
 
 </FrameLayout>

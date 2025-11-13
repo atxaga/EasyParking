@@ -2,43 +2,37 @@ package com.example.easyparking
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.commit
+import com.example.easyparking.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var user: EditText
-    private lateinit var pasahitza: EditText
-    private lateinit var saioaHasi: Button
-
-    private lateinit var registerButton: TextView
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
 
-        user = findViewById(R.id.emailEditText)
-        pasahitza = findViewById(R.id.passwordEditText)
-        saioaHasi = findViewById(R.id.loginButton)
-        registerButton = findViewById(R.id.registerText)
+        // Inicializar binding
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        saioaHasi.setOnClickListener {saioaHasi() }
-        registerButton.setOnClickListener { register() }
-
+        // Listeners de botones
+        binding.loginButton.setOnClickListener { saioaHasi() }
+        binding.registerText.setOnClickListener { register() }
     }
-    fun saioaHasi(){
-        if (user.text.toString() == "bittor" && pasahitza.text.toString() == "bittor") {
 
+    private fun saioaHasi() {
+        val user = binding.emailEditText.text.toString()
+        val pasahitza = binding.passwordEditText.text.toString()
+
+        if (user == "bittor" && pasahitza == "bittor") {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }
-    fun register(){
+
+    private fun register() {
         val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
-
     }
 }

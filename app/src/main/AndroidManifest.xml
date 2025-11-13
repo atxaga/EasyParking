@@ -20,7 +20,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value=""
             />
-        <activity android:name=".AparkatuActivity" />
+        <activity android:name=".AparkatuActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -33,7 +35,8 @@
         <activity android:name=".RegisterActivity"/>
         <activity android:name=".CarsActivity" />
         <activity android:name=".ParkedCarsActivity"/>
-        <activity android:name=".ActivityCuenta"/>
+        <activity android:name=".ActivityCuenta"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
 
         <activity
             android:name=".MainActivity"

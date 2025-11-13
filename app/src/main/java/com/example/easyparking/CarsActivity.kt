@@ -3,36 +3,32 @@ package com.example.easyparking
 import Car
 import CarAdapter
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.easyparking.databinding.ActivityCarsBinding
 
 class CarsActivity : AppCompatActivity() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var addButton: Button
+    private lateinit var binding: ActivityCarsBinding
     private lateinit var carAdapter: CarAdapter
     private val carList = mutableListOf<Car>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cars)
-
-        recyclerView = findViewById(R.id.carsRecyclerView)
-        addButton = findViewById(R.id.addCarButton)
+        binding = ActivityCarsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Configurar RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.carsRecyclerView.layoutManager = LinearLayoutManager(this)
         carAdapter = CarAdapter(carList)
-        recyclerView.adapter = carAdapter
+        binding.carsRecyclerView.adapter = carAdapter
 
         // Cargar coches desde la base de datos
         loadCarsFromDatabase()
 
         // Acción del botón
-        addButton.setOnClickListener {
-            // Abrir un formulario para añadir coche
+        binding.addCarButton.setOnClickListener {
+            // TODO: Abrir un formulario para añadir coche
         }
     }
 

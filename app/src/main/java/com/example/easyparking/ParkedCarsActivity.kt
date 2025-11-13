@@ -1,7 +1,7 @@
 package com.example.easyparking
 
 import ParkedCar
-import ParkedCarAdapter
+import com.example.easyparking.R
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity

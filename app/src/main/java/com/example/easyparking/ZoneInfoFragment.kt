@@ -5,46 +5,45 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.easyparking.databinding.FragmentZoneInfoBinding
 
 class ZoneInfoFragment : Fragment() {
 
-    private lateinit var zoneNameText: TextView
-    private lateinit var zoneSpotsText: TextView
-    private lateinit var container: View
-    private lateinit var aparkatu: Button
+    private var _binding: FragmentZoneInfoBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, containerParent: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_zone_info, containerParent, false)
-        container = view.findViewById(R.id.zoneInfoContainer)
-        zoneNameText = view.findViewById(R.id.zoneName)
-        zoneSpotsText = view.findViewById(R.id.zoneSpots)
-        aparkatu = view.findViewById(R.id.aparkatu)
+    ): View {
+        _binding = FragmentZoneInfoBinding.inflate(inflater, containerParent, false)
 
         // Oculto al inicio
-        container.visibility = View.GONE
+        binding.zoneInfoContainer.visibility = View.GONE
 
-        aparkatu.setOnClickListener { aparkatuFunction() }
+        binding.aparkatu.setOnClickListener { aparkatuFunction() }
 
-        return view
+        return binding.root
     }
 
     fun updateZoneInfo(name: String, spots: Int) {
-        zoneNameText.text = name
-        zoneSpotsText.text = "Sitios libres: $spots"
-        container.visibility = View.VISIBLE
+        binding.zoneName.text = name
+        binding.zoneSpots.text = "Sitios libres: $spots"
+        binding.zoneInfoContainer.visibility = View.VISIBLE
     }
 
     fun hideZoneInfo() {
-        container.visibility = View.GONE
+        binding.zoneInfoContainer.visibility = View.GONE
     }
+
     private fun aparkatuFunction() {
         val intentAparkatu = Intent(requireContext(), AparkatuActivity::class.java)
         startActivity(intentAparkatu)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

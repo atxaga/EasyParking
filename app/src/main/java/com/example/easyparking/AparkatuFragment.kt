@@ -4,33 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.easyparking.databinding.FragmentAparkatuBinding
 
 class AparkatuFragment : Fragment() {
 
-    private lateinit var etMarca: EditText
-    private lateinit var etModelo: EditText
-    private lateinit var etHora: EditText
-    private lateinit var btnAparkatu: Button
-    private lateinit var btnAtzera: Button
+    private var _binding: FragmentAparkatuBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_aparkatu, container, false)
+    ): View {
+        _binding = FragmentAparkatuBinding.inflate(inflater, container, false)
+        val view = binding.root
 
-        etMarca = view.findViewById(R.id.etMarca)
-        etModelo = view.findViewById(R.id.etModelo)
-        etHora = view.findViewById(R.id.etHora)
-        btnAparkatu = view.findViewById(R.id.btnAparkatu)
-        btnAtzera = view.findViewById(R.id.btnAtzera)
-
-        btnAparkatu.setOnClickListener {
-            val marca = etMarca.text.toString().trim()
-            val modelo = etModelo.text.toString().trim()
-            val hora = etHora.text.toString().trim()
+        binding.btnAparkatu.setOnClickListener {
+            val marca = binding.etMarca.text.toString().trim()
+            val modelo = binding.etModelo.text.toString().trim()
+            val hora = binding.etHora.text.toString().trim()
 
             if (marca.isEmpty() || modelo.isEmpty()) {
                 Toast.makeText(requireContext(), "Introduce marca y modelo", Toast.LENGTH_SHORT).show()
@@ -45,10 +39,15 @@ class AparkatuFragment : Fragment() {
             Toast.makeText(requireContext(), mensaje, Toast.LENGTH_LONG).show()
         }
 
-        btnAtzera.setOnClickListener {
+        binding.btnAtzera.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

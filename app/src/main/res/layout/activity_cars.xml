@@ -1,25 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="16dp"
     android:background="@android:color/white">
 
-    <fragment
-        android:id="@+id/headerFragment"
-        android:name="com.example.easyparking.HeaderFragment"
+    <!-- TITULO PRINCIPAL -->
+    <LinearLayout
+        android:layout_marginTop="30dp"
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
 
+        <TextView
+            android:id="@+id/carsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nire Autoak"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#212121"/>
 
-    <!-- FOOTER -->
+        <TextView
+            android:id="@+id/carsSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hemen zure auto guztiak ikus ditzakezu"
+            android:textSize="14sp"
+            android:textColor="#616161"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/carsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"/>
 
     <!-- BOTÓN AÑADIR COCHE -->
     <Button
@@ -33,9 +59,15 @@
         android:textAllCaps="false"
         android:fontFamily="sans-serif-medium"/>
 
+    <!-- FOOTER -->
+
+</LinearLayout>
     <fragment
+
         android:id="@+id/footerFragment"
         android:name="com.example.easyparking.FooterFragment"
         android:layout_width="match_parent"
-        android:layout_height="110dp" />
-</LinearLayout>
+        android:layout_gravity="bottom"
+
+        android:layout_height="120dp" />
+</FrameLayout>

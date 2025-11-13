@@ -6,14 +6,13 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:padding="16dp"
+        android:background="@color/white"
+
         android:layout_height="match_parent">
 
         <!-- HEADER -->
-        <fragment
-            android:id="@+id/headerFragment"
-            android:name="com.example.easyparking.HeaderFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+
 
         <fragment
             android:id="@+id/fr_aparkatu"
@@ -23,13 +22,15 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <!-- FOOTER -->
-        <fragment
-            android:id="@+id/footerFragment"
-            android:name="com.example.easyparking.FooterFragment"
-            android:layout_width="match_parent"
-            android:layout_height="60dp" />
-    </LinearLayout>
 
+    </LinearLayout>
+    <fragment
+
+        android:id="@+id/footerFragment"
+        android:name="com.example.easyparking.FooterFragment"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+
+        android:layout_height="120dp"/>
 
 </FrameLayout>
