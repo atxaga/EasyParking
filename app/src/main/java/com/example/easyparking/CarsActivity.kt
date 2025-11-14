@@ -2,42 +2,53 @@ package com.example.easyparking
 
 import Car
 import CarAdapter
+import ParkedCar
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.easyparking.databinding.ActivityCarsBinding
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 
 class CarsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCarsBinding
     private lateinit var carAdapter: CarAdapter
     private val carList = mutableListOf<Car>()
+    private val db = FirebaseFirestore.getInstance();
+    private var userRegistrado: String?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCarsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Configurar RecyclerView
         binding.carsRecyclerView.layoutManager = LinearLayoutManager(this)
         carAdapter = CarAdapter(carList)
         binding.carsRecyclerView.adapter = carAdapter
 
-        // Cargar coches desde la base de datos
+        val prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+        userRegistrado = prefs.getString("userRegistrado", null)
+
         loadCarsFromDatabase()
 
-        // Acción del botón
         binding.addCarButton.setOnClickListener {
-            // TODO: Abrir un formulario para añadir coche
         }
     }
 
     private fun loadCarsFromDatabase() {
-        // Ejemplo de datos simulados, reemplaza con tu BD
-        carList.add(Car("Toyota", "Corolla", "1234ABC"))
-        carList.add(Car("Ford", "Focus", "5678DEF"))
-        carList.add(Car("Honda", "Civic", "9012GHI"))
+        db.collection("coches").get().addOnSuccessListener { queryDocumentSnapshots ->
+            if(!queryDocumentSnapshots.isEmpty){
+                for(document in queryDocumentSnapshots.documents){
+                    if(document.getString("user_id").equals(userRegistrado)){
+                        carList.add(Car(document.getString("marca").toString(), document.getString("matricula").toString(), document.getString("modelo").toString()))
+                    }
+                }
+            }
+            carAdapter.notifyDataSetChanged()
 
-        carAdapter.notifyDataSetChanged()
+        }
+
     }
 }
