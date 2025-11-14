@@ -1,141 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/white"
+    android:layout_height="100dp"
     android:orientation="horizontal"
-    android:paddingBottom="5dp"
-
-    android:gravity="center">
+    android:background="@android:color/white"
+    android:paddingBottom="40dp"
+    android:paddingTop="0dp"
+    android:gravity="center_vertical">
 
     <!-- Bilatu -->
     <LinearLayout
         android:id="@+id/bilatuLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_margin="10dp">
+        android:gravity="center_horizontal">
 
         <View
             android:id="@+id/bilatuIndicator"
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:background="@color/cyan"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
         <ImageView
+            android:layout_marginTop="15dp"
+
             android:id="@+id/bilatuIcon"
             android:layout_width="25dp"
-            android:layout_height="40dp"
-            android:src="@drawable/lupa" />
+            android:layout_height="25dp"
+            android:src="@drawable/lupa"/>
 
         <TextView
             android:id="@+id/bilatuFooter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textAlignment="center"
             android:text="Bilatu"
-            android:textColor="@android:color/black"
-            android:textSize="15sp" />
+            android:textColor="#888888"
+            android:textSize="12sp"
+            android:textAlignment="center"/>
     </LinearLayout>
 
     <!-- Aparkatuak -->
     <LinearLayout
         android:id="@+id/aparkatuLayout"
-
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:gravity="center"
-        android:layout_margin="10dp">
+        android:gravity="center_horizontal">
 
         <View
             android:id="@+id/aparkatuIndicator"
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:background="@color/cyan"
-            android:visibility="gone" />
+            android:visibility="gone"/>
+
         <ImageView
+            android:layout_marginTop="15dp"
+
             android:id="@+id/aparkatuakIcon"
             android:layout_width="25dp"
-            android:layout_height="40dp"
-            android:src="@drawable/parking" />
+            android:layout_height="25dp"
+            android:src="@drawable/parking"/>
 
         <TextView
             android:id="@+id/aparkatuakFooter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textAlignment="center"
             android:text="Aparkatuak"
-            android:textColor="@android:color/black"
-            android:textSize="15sp" />
+            android:textColor="#888888"
+            android:textSize="12sp"
+            android:textAlignment="center"/>
     </LinearLayout>
 
     <!-- Autoak -->
     <LinearLayout
         android:id="@+id/autoakLayout"
-
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:gravity="center"
-        android:layout_margin="10dp">
+        android:gravity="center_horizontal">
 
         <View
             android:id="@+id/autoakIndicator"
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:background="@color/cyan"
-            android:visibility="gone" />
+            android:visibility="gone"/>
+
         <ImageView
             android:id="@+id/autoakIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/coche" />
+            android:layout_marginTop="15dp"
+            android:layout_width="45dp"
+            android:layout_height="25dp"
+            android:src="@drawable/coche"/>
 
         <TextView
             android:id="@+id/autoakFooter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textAlignment="center"
             android:text="Autoak"
-            android:textColor="@android:color/black"
-            android:textSize="15sp" />
+            android:textColor="#888888"
+            android:textSize="12sp"
+            android:textAlignment="center"/>
     </LinearLayout>
 
     <!-- Kontua -->
     <LinearLayout
         android:id="@+id/kontuaLayout"
-
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:gravity="center"
-        android:layout_margin="10dp">
+        android:gravity="center_horizontal">
+
         <View
             android:id="@+id/kontuaIndicator"
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:background="@color/cyan"
-            android:visibility="gone" />
+            android:visibility="gone"/>
+
         <ImageView
+            android:layout_marginTop="15dp"
+
             android:id="@+id/kontuaIcon"
             android:layout_width="25dp"
-            android:layout_height="40dp"
-            android:src="@drawable/perfil" />
+            android:layout_height="25dp"
+            android:src="@drawable/perfil"/>
 
         <TextView
             android:id="@+id/kontuaFooter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textAlignment="center"
             android:text="Kontua"
-            android:textColor="@android:color/black"
-            android:textSize="15sp" />
+            android:textColor="#888888"
+            android:textSize="12sp"
+            android:textAlignment="center"/>
     </LinearLayout>
 
 </LinearLayout>

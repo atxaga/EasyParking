@@ -1,5 +1,6 @@
 package com.example.easyparking
 
+import Car
 import ParkedCar
 import com.example.easyparking.R
 import android.os.Bundle
@@ -38,11 +39,27 @@ class ParkedCarsActivity : AppCompatActivity() {
     }
 
     private fun loadParkedCarsFromDatabase() {
+        db.collection("coches").get().addOnSuccessListener { queryDocumentSnapshots ->
+            if(!queryDocumentSnapshots.isEmpty){
+                for(document in queryDocumentSnapshots.documents){
+                    if(document.getString("user_id").equals(userRegistrado)){
+                        if(document.getString("zona") != null) {
+                            parkedCars.add(
+                                ParkedCar(
+                                    document.getString("marca").toString(),
+                                    document.getString("modelo").toString(),
+                                    document.getString("matricula").toString(),
+                                    document.getString("zona").toString(),
+                                )
+                            )
+                        }
+                        }
+                }
+            }
+            adapter.notifyDataSetChanged()
 
-        // Datos simulados
-        parkedCars.add(ParkedCar("Toyota", "Corolla", "1234ABC", "A1"))
-        parkedCars.add(ParkedCar("Ford", "Focus", "5678DEF", "B2"))
-        parkedCars.add(ParkedCar("Honda", "Civic", "9012GHI", "C3"))
+
+        }
 
     }
 }
