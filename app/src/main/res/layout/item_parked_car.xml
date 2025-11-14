@@ -28,7 +28,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
-                android:src="@drawable/coche"
+                android:src="@drawable/ic_car"
                 android:contentDescription="Icono coche"
                 />
         </FrameLayout>
@@ -80,7 +80,7 @@
             android:id="@+id/moreIcon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/lapiz"
+            android:src="@drawable/ic_basura"
             android:contentDescription="Más opciones"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

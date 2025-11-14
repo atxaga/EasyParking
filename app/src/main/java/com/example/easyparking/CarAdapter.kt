@@ -4,12 +4,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.easyparking.CarsActivity
 import com.example.easyparking.R
 
 data class Car(
     val brand: String,
     val model: String,
-    val plate: String
+    val plate: String,
+    val documentId: String? = null
 )
 
 class CarAdapter(private val cars: List<Car>) :
@@ -19,6 +21,7 @@ class CarAdapter(private val cars: List<Car>) :
         val brandText: TextView = itemView.findViewById(R.id.brandText)
         val modelText: TextView = itemView.findViewById(R.id.modelText)
         val plateText: TextView = itemView.findViewById(R.id.plateText)
+        val basura: ImageView = itemView.findViewById(R.id.basura)
         val carIcon: ImageView = itemView.findViewById(R.id.carIcon)
     }
 
@@ -33,6 +36,10 @@ class CarAdapter(private val cars: List<Car>) :
         holder.brandText.text = car.brand
         holder.modelText.text = car.model
         holder.plateText.text = car.plate
+
+        holder.basura.setOnClickListener {
+            (holder.itemView.context as CarsActivity).borratuKotxe(car.documentId!!)
+        }
 
     }
 

@@ -3,7 +3,9 @@ package com.example.easyparking
 import Car
 import CarAdapter
 import ParkedCar
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,16 +36,25 @@ class CarsActivity : AppCompatActivity() {
         loadCarsFromDatabase()
 
         binding.addCarButton.setOnClickListener {
+            var intent = Intent(this, ActivityGehituCoche::class.java)
+            startActivity(intent)
         }
+
     }
 
     private fun loadCarsFromDatabase() {
+        var hayCoche = false
         db.collection("coches").get().addOnSuccessListener { queryDocumentSnapshots ->
             if(!queryDocumentSnapshots.isEmpty){
                 for(document in queryDocumentSnapshots.documents){
                     if(document.getString("user_id").equals(userRegistrado)){
-                        carList.add(Car(document.getString("marca").toString(), document.getString("matricula").toString(), document.getString("modelo").toString()))
+                        var marca = document.getString("marca")
+                        if(marca != null){hayCoche=true}
+                        carList.add(Car(document.getString("marca").toString(), document.getString("modelo").toString(), document.getString("matricula").toString(), document.id ))
                     }
+                }
+                if(!hayCoche){
+                    binding.noCarsLayout.visibility = View.VISIBLE
                 }
             }
             carAdapter.notifyDataSetChanged()
@@ -51,4 +62,28 @@ class CarsActivity : AppCompatActivity() {
         }
 
     }
+    fun borratuKotxe(documentId: String) {
+        db.collection("coches")
+            .document(documentId)
+            .delete()
+            .addOnSuccessListener {
+                Toast.makeText(this, "Coche borrado", Toast.LENGTH_SHORT).show()
+
+                // borrar de la lista
+                val iterator = carList.iterator()
+                while (iterator.hasNext()) {
+                    val car = iterator.next()
+                    if (car.documentId == documentId) {
+                        iterator.remove()
+                    }
+                }
+
+                carAdapter.notifyDataSetChanged()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Error al borrar", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+
 }

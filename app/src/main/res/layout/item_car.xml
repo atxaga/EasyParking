@@ -28,7 +28,7 @@
                 android:layout_width="42dp"
                 android:layout_height="42dp"
                 android:layout_gravity="center"
-                android:src="@drawable/coche"
+                android:src="@drawable/ic_car"
                 android:contentDescription="Icono coche"
                 />
         </FrameLayout>
@@ -66,12 +66,11 @@
                 android:textColor="#9E9E9E"/>
         </LinearLayout>
 
-        <!-- OPCIONAL: ICONO DE MÁS (editar/eliminar) -->
         <ImageView
-            android:id="@+id/moreIcon"
+            android:id="@+id/basura"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/lapiz"
-            android:contentDescription="Más opciones"/>
+            android:src="@drawable/ic_basura"
+            />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

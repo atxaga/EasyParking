@@ -1,73 +1,106 @@
-<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:background="@android:color/white">
-
-    <!-- TITULO PRINCIPAL -->
     <LinearLayout
-        android:layout_marginTop="30dp"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginBottom="16dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="@android:color/white">
 
-        <TextView
-            android:id="@+id/carsTitle"
-            android:layout_width="wrap_content"
+        <!-- TITULO -->
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nire Autoak"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="#212121"/>
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp">
 
-        <TextView
-            android:id="@+id/carsSubtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hemen zure auto guztiak ikus ditzakezu"
-            android:textSize="14sp"
-            android:textColor="#616161"
-            android:layout_marginTop="4dp"/>
+            <TextView
+                android:id="@+id/carsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nire Autoak"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="#212121"/>
+
+            <TextView
+                android:id="@+id/carsSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hemen zure auto guztiak ikus ditzakezu"
+                android:textSize="14sp"
+                android:textColor="#616161"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+
+        <!-- Contenedor de RecyclerView y mensaje de vacío -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <!-- Mensaje si no hay coches -->
+            <LinearLayout
+                android:id="@+id/noCarsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_car"
+                    android:contentDescription="Icono coche vacío"
+                    app:tint="#9E9E9E" />
+
+                <TextView
+                    android:id="@+id/noCarsMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Oraindik ez dituzu autorik"
+                    android:textColor="#9E9E9E"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_marginTop="16dp"/>
+            </LinearLayout>
+
+            <!-- RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/carsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:scrollbars="vertical"/>
+        </FrameLayout>
+
+        <!-- BOTÓN AÑADIR COCHE -->
+        <Button
+            android:id="@+id/addCarButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Auto bat gehitu"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#5500BCD4"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="80dp"
+            android:textAllCaps="false"
+            android:fontFamily="sans-serif-medium"/>
+
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/carsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:scrollbars="vertical"/>
-
-    <!-- BOTÓN AÑADIR COCHE -->
-    <Button
-        android:id="@+id/addCarButton"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Auto bat gehitu"
-        android:textColor="@android:color/white"
-        android:backgroundTint="#5500BCD4"
-        android:layout_marginTop="12dp"
-        android:textAllCaps="false"
-        android:fontFamily="sans-serif-medium"/>
-
     <!-- FOOTER -->
-
-</LinearLayout>
     <fragment
-
         android:id="@+id/footerFragment"
         android:name="com.example.easyparking.FooterFragment"
         android:layout_width="match_parent"
         android:layout_gravity="bottom"
-
         android:layout_height="wrap_content"/>
+
 </FrameLayout>

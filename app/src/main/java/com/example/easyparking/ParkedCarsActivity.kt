@@ -4,10 +4,12 @@ import Car
 import ParkedCar
 import com.example.easyparking.R
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.easyparking.databinding.ActivityParkedCarsBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ParkedCarsActivity : AppCompatActivity() {
@@ -18,11 +20,15 @@ class ParkedCarsActivity : AppCompatActivity() {
     private lateinit var adapter: ParkedCarAdapter
     private val db = FirebaseFirestore.getInstance();
     private var userRegistrado: String? = null
+    private lateinit var binding: ActivityParkedCarsBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_parked_cars)
+
+        binding = ActivityParkedCarsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
 
         recyclerView = findViewById(R.id.parkedCarsRecyclerView)
 
@@ -39,11 +45,14 @@ class ParkedCarsActivity : AppCompatActivity() {
     }
 
     private fun loadParkedCarsFromDatabase() {
+        var hayCoche = false
         db.collection("coches").get().addOnSuccessListener { queryDocumentSnapshots ->
             if(!queryDocumentSnapshots.isEmpty){
                 for(document in queryDocumentSnapshots.documents){
                     if(document.getString("user_id").equals(userRegistrado)){
                         if(document.getString("zona") != null) {
+                            var marca = document.getString("marca")
+                            if(marca != null){hayCoche = true}
                             parkedCars.add(
                                 ParkedCar(
                                     document.getString("marca").toString(),
@@ -55,6 +64,10 @@ class ParkedCarsActivity : AppCompatActivity() {
                         }
                         }
                 }
+                if(!hayCoche){
+                    binding.noCarsLayout.visibility = View.VISIBLE
+                }
+
             }
             adapter.notifyDataSetChanged()
 
