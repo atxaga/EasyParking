@@ -22,7 +22,7 @@ class ZoneInfoFragment : Fragment() {
         // Oculto al inicio
         binding.zoneInfoContainer.visibility = View.GONE
 
-        binding.aparkatu.setOnClickListener { aparkatuFunction() }
+        binding.aparkatu.setOnClickListener { goToAparkatu() }
 
         return binding.root
     }
@@ -37,9 +37,9 @@ class ZoneInfoFragment : Fragment() {
         binding.zoneInfoContainer.visibility = View.GONE
     }
 
-    private fun aparkatuFunction() {
-        val intentAparkatu = Intent(requireContext(), AparkatuActivity::class.java)
-        startActivity(intentAparkatu)
+    private fun goToAparkatu() {
+        val intent = Intent(requireContext(), AparkatuActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onDestroyView() {

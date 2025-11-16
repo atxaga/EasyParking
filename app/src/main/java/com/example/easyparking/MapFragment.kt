@@ -2,24 +2,25 @@ package com.example.easyparking
 
 import android.graphics.*
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import org.json.JSONObject
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.Polygon
-import java.io.BufferedReader
-import java.io.InputStreamReader
 
 class MapFragment : Fragment() {
 
     private lateinit var map: MapView
     private var selectedPolygon: Polygon? = null
+    private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +37,7 @@ class MapFragment : Fragment() {
         map.controller.setZoom(16.0)
         map.controller.setCenter(donostia)
 
-        loadGeoJsonZones()
+        loadSectorsFromFirestore()
 
         map.setOnTouchListener { _, _ ->
             val zoneInfo = requireActivity()
@@ -49,76 +50,94 @@ class MapFragment : Fragment() {
         return view
     }
 
-    private fun loadGeoJsonZones() {
-        try {
-            val inputStream = requireContext().assets.open("zonas.geojson")
-            val jsonText = BufferedReader(InputStreamReader(inputStream)).use { it.readText() }
-            val json = JSONObject(jsonText)
-            val features = json.getJSONArray("features")
-
-            for (i in 0 until features.length()) {
-                val feature = features.getJSONObject(i)
-                val geometry = feature.getJSONObject("geometry")
-                val properties = feature.getJSONObject("properties")
-
-                val zoneName = properties.optString("name", "Zona ${i + 1}")
-
-                val coordinates = geometry.getJSONArray("coordinates").getJSONArray(0)
-                val points = mutableListOf<GeoPoint>()
-                for (j in 0 until coordinates.length()) {
-                    val coord = coordinates.getJSONArray(j)
-                    val lon = coord.getDouble(0)
-                    val lat = coord.getDouble(1)
-                    points.add(GeoPoint(lat, lon))
+    private fun loadSectorsFromFirestore() {
+        firestore.collection("sectores").get()
+            .addOnSuccessListener { result ->
+                for (doc in result.documents) {
+                    val sector = doc.toObject(Sector::class.java)?.apply { id = doc.id }
+                    sector?.let { drawSectorPolygon(it) }
                 }
-
-                val polygon = Polygon(map)
-                polygon.points = points
-                polygon.fillColor = Color.argb(80, 100, 149, 237)
-                polygon.strokeColor = Color.parseColor("#87CEEB")
-                polygon.strokeWidth = 6.0f
-
-                val center = getPolygonCenter(points)
-                val randomFreeSpots = (5..30).random()
-
-                // ✅ Crear marcador con texto dibujado
-                val label = Marker(map)
-                label.position = center
-                label.icon = createTextIcon(randomFreeSpots.toString())
-                label.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
-
-                polygon.setOnClickListener { p, _, _ ->
-                    selectedPolygon?.fillColor = Color.argb(80, 100, 149, 237)
-                    selectedPolygon = p
-                    p.fillColor = Color.argb(120, 255, 255, 255)
-
-                    val zoneInfo = requireActivity()
-                        .supportFragmentManager
-                        .findFragmentById(R.id.zoneInfoFragment) as? ZoneInfoFragment
-                    zoneInfo?.updateZoneInfo(zoneName, randomFreeSpots)
-
-                    map.controller.animateTo(center)
-                    map.controller.setZoom(17.0)
-                    map.invalidate()
-                    true
-                }
-
-                map.overlays.add(polygon)
-                map.overlays.add(label)
             }
-
-            map.invalidate()
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+            .addOnFailureListener { e ->
+                Log.e("MapFragment", "Error cargando sectores: ${e.message}")
+            }
     }
 
-    // 🟢 Dibuja el número como imagen para usar como icono
+    private fun drawSectorPolygon(sector: Sector) {
+        val points = sector.coordenadas.map { GeoPoint(it.lat, it.lon) }
+
+        val polygon = Polygon(map)
+        polygon.points = points
+        polygon.fillColor = Color.argb(80, 100, 149, 237)
+        polygon.strokeColor = Color.parseColor("#87CEEB")
+        polygon.strokeWidth = 6.0f
+
+        val center = getPolygonCenter(points)
+
+        // Marcador con el NOMBRE del sector
+        val label = Marker(map)
+        label.position = center
+        label.icon = createTextIcon(sector.nombre) // <- aquí usamos el nombre
+        label.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
+
+        polygon.setOnClickListener { p, _, _ ->
+            // Resaltar zona seleccionada
+            selectedPolygon?.fillColor = Color.argb(80, 100, 149, 237)
+            selectedPolygon = p
+            p.fillColor = Color.argb(120, 255, 255, 255)
+
+            // Guardamos la zona seleccionada en SharedPreferences
+            val prefs = requireActivity().getSharedPreferences(
+                "UserPrefs",
+                android.content.Context.MODE_PRIVATE
+            )
+            prefs.edit().putString("selectedZone", sector.nombre).apply()
+
+            // Actualizamos Firestore: sector.usuarioId
+            val userId = FirebaseAuth.getInstance().currentUser?.uid ?: "anonimo" // FirebaseAuth.getInstance().currentUser?.uid
+            firestore.collection("sectores").document(sector.id)
+                .update("usuarioId", userId)
+                .addOnSuccessListener {
+                    Log.d("MapFragment", "Sector actualizado con usuarioId")
+                }
+                .addOnFailureListener { e ->
+                    Log.e("MapFragment", "Error al actualizar sector: ${e.message}")
+                }
+
+            // Guardar en tabla "coches" (aparcar)
+            val coche = hashMapOf(
+                "usuarioId" to userId,
+                "zona" to sector.nombre,
+                "timestamp" to System.currentTimeMillis()
+            )
+            firestore.collection("coches")
+                .add(coche)
+                .addOnSuccessListener { Log.d("MapFragment", "Coche aparcado") }
+                .addOnFailureListener { e -> Log.e("MapFragment", "Error al aparcar: ${e.message}") }
+
+            // Mostrar info de la zona
+            val zoneInfo = requireActivity()
+                .supportFragmentManager
+                .findFragmentById(R.id.zoneInfoFragment) as? ZoneInfoFragment
+            zoneInfo?.updateZoneInfo(sector.nombre, sector.libres)
+
+            map.controller.animateTo(center)
+            map.controller.setZoom(17.0)
+            map.invalidate()
+            true
+        }
+
+        map.overlays.add(polygon)
+        map.overlays.add(label)
+        map.invalidate()
+    }
+
+
+    // Dibuja el número como imagen para usar como icono
     private fun createTextIcon(text: String): android.graphics.drawable.BitmapDrawable {
         val textPaint = Paint().apply {
             color = Color.WHITE
-            textSize = 42f // antes 70f
+            textSize = 42f
             isFakeBoldText = true
             textAlign = Paint.Align.CENTER
             typeface = Typeface.DEFAULT_BOLD
@@ -127,12 +146,12 @@ class MapFragment : Fragment() {
         }
 
         val backgroundPaint = Paint().apply {
-            color = Color.parseColor("#1ABC9C") // verde agua moderno
+            color = Color.parseColor("#1ABC9C")
             style = Paint.Style.FILL
             isAntiAlias = true
         }
 
-        val padding = 20 // antes 40
+        val padding = 20
         val textWidth = textPaint.measureText(text)
         val textHeight = textPaint.descent() - textPaint.ascent()
         val width = (textWidth + padding * 2).toInt()
@@ -140,7 +159,6 @@ class MapFragment : Fragment() {
 
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
-
         val rect = RectF(0f, 0f, width.toFloat(), height.toFloat())
         canvas.drawRoundRect(rect, 30f, 30f, backgroundPaint)
 
@@ -151,8 +169,6 @@ class MapFragment : Fragment() {
         return android.graphics.drawable.BitmapDrawable(resources, bitmap)
     }
 
-
-
     private fun getPolygonCenter(points: List<GeoPoint>): GeoPoint {
         var lat = 0.0
         var lon = 0.0
@@ -160,7 +176,7 @@ class MapFragment : Fragment() {
             lat += p.latitude
             lon += p.longitude
         }
-        val total = points.size
-        return GeoPoint(lat / total, lon / total)
+        return GeoPoint(lat / points.size, lon / points.size)
     }
 }
+

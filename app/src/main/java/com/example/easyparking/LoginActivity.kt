@@ -8,10 +8,9 @@ import com.example.easyparking.databinding.ActivityLoginBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
-    private val db = FirebaseFirestore.getInstance();
-    private var userRegistrado: String?=null
 
     private lateinit var binding: ActivityLoginBinding
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,51 +18,55 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.loginButton.setOnClickListener { saioaHasi() }
-        binding.registerText.setOnClickListener { register() }
-
+        // Comprobar si ya hay un usuario guardado
         val prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE)
-        userRegistrado = prefs.getString("userRegistrado", null)
+        val savedUser = prefs.getString("userRegistrado", null)
 
-        if(userRegistrado != null){
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+        if (savedUser != null) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
 
-
+        binding.loginButton.setOnClickListener { iniciarSesion() }
+        binding.registerText.setOnClickListener { abrirRegistro() }
     }
 
-    private fun saioaHasi() {
-        val user = binding.emailEditText.text.toString()
-        val pasahitza = binding.passwordEditText.text.toString()
-        var kredentzalak = false;
+    private fun iniciarSesion() {
+        val email = binding.emailEditText.text.toString().trim()
+        val password = binding.passwordEditText.text.toString().trim()
 
-        db.collection("usuarios").get().addOnSuccessListener { queryDocumentSnapshots ->
-            if(!queryDocumentSnapshots.isEmpty){
-                for (document in queryDocumentSnapshots.documents){
-                    if(document.getString("email").equals(user) && document.getString("contraseña").equals(pasahitza)){
-                        kredentzalak= true;
-                        val prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE)
-                        prefs.edit().putString("userRegistrado", document.id).apply()
-                        break
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show()
+            return
+        }
 
+        db.collection("usuarios")
+            .whereEqualTo("email", email)
+            .whereEqualTo("contraseña", password)
+            .get()
+            .addOnSuccessListener { result ->
+                if (result.isEmpty) {
+                    Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
+                } else {
+                    val userDoc = result.documents.first()
+                    val userId = userDoc.id  // <-- ESTE ES EL UID REAL
 
-                    }
-                }
-                if (!kredentzalak){
-                    Toast.makeText(this, "Kredentzial okerrak", Toast.LENGTH_SHORT).show()
-                }else{
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    // Guardar usuario logueado
+                    val prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+                    prefs.edit().putString("userRegistrado", userId).apply()
+
+                    Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show()
+
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
                 }
             }
-        }
-
-
+            .addOnFailureListener {
+                Toast.makeText(this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show()
+            }
     }
 
-    private fun register() {
-        val intent = Intent(this, RegisterActivity::class.java)
-        startActivity(intent)
+    private fun abrirRegistro() {
+        startActivity(Intent(this, RegisterActivity::class.java))
     }
 }

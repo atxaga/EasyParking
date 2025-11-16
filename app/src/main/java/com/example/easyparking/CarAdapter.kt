@@ -8,10 +8,11 @@ import com.example.easyparking.CarsActivity
 import com.example.easyparking.R
 
 data class Car(
-    val brand: String,
-    val model: String,
-    val plate: String,
-    val documentId: String? = null
+    var marca: String = "",
+    var modelo: String = "",
+    var matricula: String = "",
+    var user_id: String = "",
+    var zona: String? = null
 )
 
 class CarAdapter(private val cars: List<Car>) :
@@ -33,12 +34,12 @@ class CarAdapter(private val cars: List<Car>) :
 
     override fun onBindViewHolder(holder: CarViewHolder, position: Int) {
         val car = cars[position]
-        holder.brandText.text = car.brand
-        holder.modelText.text = car.model
-        holder.plateText.text = car.plate
+        holder.brandText.text = car.marca
+        holder.modelText.text = car.modelo
+        holder.plateText.text = car.matricula
 
         holder.basura.setOnClickListener {
-            (holder.itemView.context as CarsActivity).borratuKotxe(car.documentId!!)
+            (holder.itemView.context as CarsActivity).borratuKotxe(car.user_id!!)
         }
 
     }

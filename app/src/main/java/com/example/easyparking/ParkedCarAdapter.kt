@@ -20,9 +20,9 @@ class ParkedCarAdapter(private val cars: List<ParkedCar>) :
     override fun onBindViewHolder(holder: ParkedCarViewHolder, position: Int) {
         val car = cars[position]
         with(holder.binding) {
-            brandText.text = car.brand
-            modelText.text = car.model
-            plateText.text = car.plate
+            brandText.text = car.marca
+            modelText.text = car.modelo
+            plateText.text = car.matricula
             zoneText.text = "Zona: ${car.zone}"
             carIcon.setImageResource(R.drawable.coche)
         }

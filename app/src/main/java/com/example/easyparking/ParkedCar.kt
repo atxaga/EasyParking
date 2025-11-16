@@ -1,6 +1,7 @@
 data class ParkedCar(
-    val brand: String,
-    val model: String,
-    val plate: String,
+    val marca: String,
+    val modelo: String,
+    val matricula: String,
+    var user_id: String = "",
     val zone: String
 )

@@ -26,4 +26,9 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+    fun showZoneInfo(name: String, spots: Int) {
+        val zoneInfo = supportFragmentManager.findFragmentById(R.id.zoneInfoFragment) as? ZoneInfoFragment
+        zoneInfo?.updateZoneInfo(name, spots)
+    }
 }

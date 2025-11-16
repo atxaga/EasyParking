@@ -8,7 +8,9 @@ import org.json.JSONObject
 data class Coordenada(
     val lat: Double,
     val lon: Double
-)
+){
+    constructor() : this(0.0, 0.0) // Constructor vacío requerido por Firestore
+}
 
 data class Plaza(
     val ocupado: Boolean = false,
@@ -17,6 +19,7 @@ data class Plaza(
 )
 
 data class Sector(
+    var id: String = "",
     val nombre: String = "",
     val capacidad: Int = 0,
     val libres: Int = 0,

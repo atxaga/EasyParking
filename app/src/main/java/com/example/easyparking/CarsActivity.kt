@@ -5,11 +5,13 @@ import CarAdapter
 import ParkedCar
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.easyparking.databinding.ActivityCarsBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
@@ -25,6 +27,7 @@ class CarsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCarsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Log.d("DEBUG", "UID actual: ${FirebaseAuth.getInstance().currentUser?.uid}")
 
         binding.carsRecyclerView.layoutManager = LinearLayoutManager(this)
         carAdapter = CarAdapter(carList)
@@ -73,7 +76,7 @@ class CarsActivity : AppCompatActivity() {
                 val iterator = carList.iterator()
                 while (iterator.hasNext()) {
                     val car = iterator.next()
-                    if (car.documentId == documentId) {
+                    if (car.user_id == documentId) {
                         iterator.remove()
                     }
                 }
