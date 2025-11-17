@@ -87,7 +87,7 @@
             android:layout_height="50dp"
             android:text="Auto bat gehitu"
             android:textColor="@android:color/white"
-            android:backgroundTint="#5500BCD4"
+            android:backgroundTint="@color/cyan"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="80dp"
             android:textAllCaps="false"

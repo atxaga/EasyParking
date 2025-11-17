@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="24dp"
     android:background="@android:color/white">
 
@@ -10,6 +11,50 @@
         android:layout_height="wrap_content"
 
         android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            >
+            <!-- Contenido personalizado del Toolbar -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- Botón atrás a la izquierda -->
+                <LinearLayout
+                    android:id="@+id/btnAtzera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_atzera"
+                        app:tint="#212121"
+                        android:contentDescription="Atzera" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Atzera"
+                        android:textSize="16sp"
+                        android:textColor="#212121"
+                        android:layout_marginStart="8dp" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
         <LinearLayout
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
@@ -39,7 +84,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Marca del coche"
+            android:text="Autoaren Marka"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -49,7 +94,8 @@
             android:id="@+id/etMarca"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ej: Toyota"
+            android:hint="Adb: Toyota"
+            android:textColor="@color/black"
             android:background="@drawable/bg_edittext_rounded"
             android:padding="12dp"
             android:inputType="textCapWords" />
@@ -58,7 +104,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Modelo del coche"
+            android:text="Autoaren Modeloa"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -69,16 +115,17 @@
             android:id="@+id/etModelo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ej: Corolla"
+            android:hint="Adb: Corolla"
             android:background="@drawable/bg_edittext_rounded"
             android:padding="12dp"
+            android:textColor="@color/black"
             android:inputType="textCapWords" />
 
         <!-- Hasta qué hora -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Matricula"
+            android:text="Matrikula"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -89,7 +136,8 @@
             android:id="@+id/etMatricula"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ej: 1111MMM"
+            android:hint="Adb: 1111MMM"
+            android:textColor="@color/black"
             android:background="@drawable/bg_edittext_rounded"
             android:padding="12dp" />
 
@@ -118,15 +166,7 @@
 
                 android:layout_marginEnd="8dp" />
 
-            <Button
-                android:id="@+id/btnAtzera"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Atzera"
-                android:textColor="@android:color/white"
-                android:backgroundTint="@color/cyan"
-                android:layout_marginStart="8dp" />
+
         </LinearLayout>
 
     </LinearLayout>

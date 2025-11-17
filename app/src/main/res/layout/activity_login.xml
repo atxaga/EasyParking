@@ -9,30 +9,19 @@
     android:gravity="center"
     tools:context=".LoginActivity">
 
-    <!-- LOGO -->
-    <TextView
-        android:id="@+id/logo"
-        android:layout_width="120dp"
-        android:layout_height="80dp"
-        android:text="EasyParking"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:scaleType="centerInside"/>
-
     <!-- CARD CON FORMULARIO -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="24dp"
-        android:background="@drawable/bg_card"
-        android:elevation="8dp"
         android:clipToPadding="false">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Saioa Hasi"
+            android:textColor="@color/black"
             android:layout_margin="30sp"
             android:textSize="25dp"
             android:textAlignment="center"

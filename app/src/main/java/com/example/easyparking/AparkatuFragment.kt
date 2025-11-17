@@ -35,7 +35,6 @@ class AparkatuFragment : Fragment() {
         loadCars()
 
         binding.btnAparkatu.setOnClickListener { aparkatu() }
-        binding.btnAtzera.setOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
 
         return binding.root
     }
@@ -72,6 +71,9 @@ class AparkatuFragment : Fragment() {
                         matricula = doc.getString("matricula") ?: ""
                     )
                     carList.add(car)
+                }
+                if(carList.isEmpty()){
+                    binding.noCarsLayout.visibility = View.VISIBLE
                 }
                 adapter.notifyDataSetChanged()
             }

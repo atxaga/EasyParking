@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity() {
     private fun checkUserParking() {
         if (currentUserId == null) return
 
+        var aparkatutaDago = false
+
         firestore.collection("coches")
             .whereEqualTo("user_id", currentUserId)
             .get()
@@ -52,11 +54,15 @@ class MainActivity : AppCompatActivity() {
                             val car = " ${document.getString("marca")} ${document.getString("matricula")} " ?: "Coche desconocido"
 
                             showParkingInfo(car, zone)
+                            aparkatutaDago = true
 
                         }
 
 
                         // Mostramos el fragmento con info del coche
+                    }
+                    if(!aparkatutaDago){
+                        hideParkingInfo()
                     }
                 }
             }
@@ -80,6 +86,7 @@ class MainActivity : AppCompatActivity() {
     private fun hideParkingInfo() {
         findViewById<FrameLayout>(R.id.parkingInfo).visibility = View.GONE
     }
+
 
 
     private fun hideParkingInfoFragment() {

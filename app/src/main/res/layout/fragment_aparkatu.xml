@@ -2,12 +2,41 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="24dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/noCarsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            >
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_car"
+                android:contentDescription="Icono coche vacío"
+                app:tint="#9E9E9E" />
+
+            <TextView
+                android:id="@+id/noCarsMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ez duzu kotxerik"
+                android:textColor="#9E9E9E"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_marginTop="16dp"/>
+        </LinearLayout>
+
 
         <!-- Lista de coches -->
         <androidx.recyclerview.widget.RecyclerView
@@ -36,15 +65,6 @@
                 android:textColor="@android:color/white" />
 
 
-            <Button
-                android:id="@+id/btnAtzera"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Atzera"
-                android:backgroundTint="@color/cyan"
-                android:textColor="@android:color/white"
-                android:layout_marginStart="8dp" />
         </LinearLayout>
 
     </LinearLayout>
