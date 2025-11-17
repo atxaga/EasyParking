@@ -6,36 +6,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.easyparking.databinding.FragmentZoneInfoBinding
+import com.example.easyparking.databinding.ActivityParkedCarsBinding
+import com.example.easyparking.databinding.FragmentParkedCarInfoBinding
+import com.google.common.net.InetAddresses
 
-class ZoneInfoFragment : Fragment() {
+class ParkedCarInfoFragment : Fragment() {
 
-    private var _binding: FragmentZoneInfoBinding? = null
+    private var _binding: FragmentParkedCarInfoBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, containerParent: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View {
-        _binding = FragmentZoneInfoBinding.inflate(inflater, containerParent, false)
-
+        _binding = FragmentParkedCarInfoBinding.inflate(inflater, containerParent, false)
+        binding.arrowIcon.setOnClickListener {
+            var intent = Intent(requireContext(), ParkedCarsActivity::class.java)
+            startActivity(intent)
+        }
         // Oculto al inicio
-        binding.zoneInfoContainer.visibility = View.GONE
 
-        binding.aparkatu.setOnClickListener { goToAparkatu() }
 
         return binding.root
+
     }
 
-    fun updateZoneInfo(name: String, spots: Int) {
-        binding.zoneName.text = name
-        binding.zoneSpots.text = "Leku libreak: $spots"
-        binding.zoneInfoContainer.visibility = View.VISIBLE
-    }
 
-    fun hideZoneInfo() {
-        binding.zoneInfoContainer.visibility = View.GONE
-    }
 
     private fun goToAparkatu() {
         val intent = Intent(requireContext(), AparkatuActivity::class.java)

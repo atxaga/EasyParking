@@ -36,6 +36,7 @@
         <activity android:name=".CarsActivity" />
         <activity android:name=".ParkedCarsActivity"/>
         <activity android:name=".ActivityGehituCoche"/>
+
         <activity android:name=".ActivityCuenta"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
 

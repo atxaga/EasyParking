@@ -39,8 +39,20 @@ class CarAdapter(private val cars: List<Car>) :
         holder.plateText.text = car.matricula
 
         holder.basura.setOnClickListener {
-            (holder.itemView.context as CarsActivity).borratuKotxe(car.user_id!!)
+            com.google.android.material.dialog.MaterialAlertDialogBuilder(holder.itemView.context)
+                .setTitle("Ziur zaude?")
+                .setMessage("Benetan ezabatu nahi duzu auto hau: ${car.matricula}?")
+                .setIcon(R.drawable.ic_basura) // icono de basura bonito
+                .setPositiveButton("Bai") { dialog, _ ->
+                    (holder.itemView.context as CarsActivity).borratuKotxe(car.user_id!!)
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Ez") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
         }
+
 
     }
 

@@ -10,7 +10,31 @@
         android:layout_height="wrap_content"
 
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp">
 
+            <TextView
+                android:id="@+id/carsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Auto bat gehitu"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="#212121" />
+
+            <TextView
+                android:id="@+id/carsSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hemen zure auto bat erregistratuko duzu"
+                android:textSize="14sp"
+                android:textColor="#616161"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
         <!-- Marca -->
         <TextView
             android:layout_width="wrap_content"

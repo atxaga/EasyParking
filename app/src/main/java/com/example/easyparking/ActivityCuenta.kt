@@ -22,7 +22,7 @@ class ActivityCuenta : AppCompatActivity() {
         setContentView(binding.root)
 
         var prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE)
-        userRegistrado = prefs.getString("UserRegistrado", null)
+        userRegistrado = prefs.getString("userRegistrado", null)
 
         binding.logoutButton.setOnClickListener { logout() }
         binding.saveButton.setOnClickListener { gordeAldaketak() }
@@ -63,6 +63,7 @@ class ActivityCuenta : AppCompatActivity() {
         startActivity(intent)
     }
     fun loadDatuak(){
+
         db.collection("usuarios").get().addOnSuccessListener { queryDocumentSnapshots ->
             for(document in queryDocumentSnapshots.documents){
                 if(document.id == userRegistrado){

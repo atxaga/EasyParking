@@ -1,6 +1,7 @@
 package com.example.easyparking
 
 import Car
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -60,6 +61,7 @@ class AparkatuFragment : Fragment() {
 
         db.collection("coches")
             .whereEqualTo("user_id", uid)
+            .whereEqualTo("zona", null)
             .get()
             .addOnSuccessListener { result ->
                 carList.clear()
@@ -107,7 +109,17 @@ class AparkatuFragment : Fragment() {
                         .addOnSuccessListener {
                             Toast.makeText(requireContext(), "Autoa aparkatuta!", Toast.LENGTH_SHORT).show()
                         }
+                    db.collection("sectores").whereEqualTo("nombre", selectedZone).get().addOnSuccessListener { queryDocumentSnapshots ->
+                        for(document in queryDocumentSnapshots.documents){
+                            val capacidad = document.getLong("capacidad")?.toInt() ?: 0
+                            var capacidadBerria = capacidad-1
+                            db.collection("sectores").document(document.id).update("capacidad", capacidadBerria)
+                        }
+                    }
+                    var intent = Intent(requireContext(), MainActivity::class.java)
+                    startActivity(intent)
                 }
+
             }
     }
 

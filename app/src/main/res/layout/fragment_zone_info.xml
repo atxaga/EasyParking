@@ -50,15 +50,7 @@
                 android:textColor="#000000"
                 android:background="@drawable/bg_button_rounded"/>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/utzi"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:text="Utzi Aparkalekua"
-                android:textColor="#000000"
-                android:background="@drawable/bg_button_rounded"/>
+
         </LinearLayout>
 
 

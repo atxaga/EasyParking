@@ -45,23 +45,44 @@ class MapFragment : Fragment() {
                 .findFragmentById(R.id.zoneInfoFragment) as? ZoneInfoFragment
             zoneInfo?.hideZoneInfo()
             false
+
+
         }
 
         return view
     }
 
     private fun loadSectorsFromFirestore() {
-        firestore.collection("sectores").get()
-            .addOnSuccessListener { result ->
-                for (doc in result.documents) {
-                    val sector = doc.toObject(Sector::class.java)?.apply { id = doc.id }
-                    sector?.let { drawSectorPolygon(it) }
+        firestore.collection("sectores")
+            .addSnapshotListener { snapshots, error ->
+                if (error != null) {
+                    Log.e("MapFragment", "Error cargando sectores: ${error.message}")
+                    return@addSnapshotListener
                 }
-            }
-            .addOnFailureListener { e ->
-                Log.e("MapFragment", "Error cargando sectores: ${e.message}")
+
+                // Limpiamos los polígonos anteriores
+                map.overlays.clear()
+
+                snapshots?.forEach { doc ->
+                    val sector = doc.toObject(Sector::class.java)?.apply { id = doc.id }
+
+                    // Calcula los libres: capacidad menos coches aparcados en este sector
+                    if (sector != null) {
+                        firestore.collection("coches")
+                            .whereEqualTo("zona", sector.nombre)
+                            .get()
+                            .addOnSuccessListener { cochesSnapshot ->
+                                sector.libres = sector.capacidad
+                                drawSectorPolygon(sector)
+                            }
+                    }
+                }
+
+                map.invalidate()
             }
     }
+
+
 
     private fun drawSectorPolygon(sector: Sector) {
         val points = sector.coordenadas.map { GeoPoint(it.lat, it.lon) }
@@ -77,9 +98,8 @@ class MapFragment : Fragment() {
         // Marcador con el NOMBRE del sector
         val label = Marker(map)
         label.position = center
-        label.icon = createTextIcon(sector.nombre) // <- aquí usamos el nombre
+        label.icon = createTextIcon(sector.libres.toString()) // usamos libres actualizados
         label.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
-
         polygon.setOnClickListener { p, _, _ ->
             // Resaltar zona seleccionada
             selectedPolygon?.fillColor = Color.argb(80, 100, 149, 237)

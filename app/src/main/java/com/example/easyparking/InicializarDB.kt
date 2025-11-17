@@ -22,7 +22,7 @@ data class Sector(
     var id: String = "",
     val nombre: String = "",
     val capacidad: Int = 0,
-    val libres: Int = 0,
+    var libres: Int = 0,
     val plazas: List<Plaza> = emptyList(),
     val coordenadas: List<Coordenada> = emptyList()
 )

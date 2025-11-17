@@ -1,17 +1,27 @@
 package com.example.easyparking
 
+import Car
 import ParkedCar
+import com.example.easyparking.R
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.easyparking.databinding.ActivityParkedCarsBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ParkedCarsActivity : AppCompatActivity() {
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var addButton: Button
+    private val parkedCars = mutableListOf<ParkedCar>()
+    private lateinit var adapter: ParkedCarAdapter
+    private val db = FirebaseFirestore.getInstance();
+    private var userRegistrado: String? = null
     private lateinit var binding: ActivityParkedCarsBinding
-    private val db = FirebaseFirestore.getInstance()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,52 +29,51 @@ class ParkedCarsActivity : AppCompatActivity() {
         binding = ActivityParkedCarsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.parkedCarsRecyclerView.layoutManager = LinearLayoutManager(this)
+        val prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+        userRegistrado = prefs.getString("userRegistrado", null)
 
-        cargarCochesAparcados()
+        recyclerView = findViewById(R.id.parkedCarsRecyclerView)
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = ParkedCarAdapter(parkedCars, userRegistrado)
+        recyclerView.adapter = adapter
+
+
+
+        loadParkedCarsFromDatabase()
+
+
     }
 
-    private fun cargarCochesAparcados() {
+    private fun loadParkedCarsFromDatabase() {
+        var hayCoche = false
+        db.collection("coches").get().addOnSuccessListener { queryDocumentSnapshots ->
+            if(!queryDocumentSnapshots.isEmpty){
+                for(document in queryDocumentSnapshots.documents){
+                    if(document.getString("user_id").equals(userRegistrado)){
+                        if(document.getString("zona") != null) {
+                            var marca = document.getString("marca")
+                            if(marca != null){hayCoche = true}
+                            parkedCars.add(
+                                ParkedCar(
+                                    document.getString("marca").toString(),
+                                    document.getString("modelo").toString(),
+                                    document.getString("matricula").toString(),
+                                    document.getString("zona").toString().replace("Zona", "")
+                                )
+                            )
+                        }
+                    }
+                }
+                if(!hayCoche){
+                    binding.noCarsLayout.visibility = View.VISIBLE
+                }
 
-        val prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE)
-        val userId = prefs.getString("userRegistrado", null)
+            }
+            adapter.notifyDataSetChanged()
 
-        if (userId == null) {
-            mostrarSinCoches()
-            return
+
         }
 
-        db.collection("coches")
-            .whereEqualTo("user_id", userId)
-            .whereNotEqualTo("zona", null)  // SOLO coches aparcados
-            .get()
-            .addOnSuccessListener { result ->
-
-                if (result.isEmpty) {
-                    mostrarSinCoches()
-                    return@addOnSuccessListener
-                }
-
-                val lista = result.documents.map { doc ->
-                    ParkedCar(
-                        marca = doc.getString("marca") ?: "",
-                        modelo = doc.getString("modelo") ?: "",
-                        matricula = doc.getString("matricula") ?: "",
-                        zone = doc.getString("zona") ?: "Desconocida"
-                    )
-                }
-
-                binding.noCarsLayout.visibility = View.GONE
-                binding.parkedCarsRecyclerView.visibility = View.VISIBLE
-                binding.parkedCarsRecyclerView.adapter = ParkedCarAdapter(lista)
-            }
-            .addOnFailureListener {
-                mostrarSinCoches()
-            }
-    }
-
-    private fun mostrarSinCoches() {
-        binding.noCarsLayout.visibility = View.VISIBLE
-        binding.parkedCarsRecyclerView.visibility = View.GONE
     }
 }

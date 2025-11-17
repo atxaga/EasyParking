@@ -16,22 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Hora opcional -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="¿Hasta qué hora?"
-            android:textStyle="bold"
-            android:paddingBottom="8dp" />
 
-        <EditText
-            android:id="@+id/etHora"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="HH:MM"
-            android:inputType="time"
-            android:background="@drawable/bg_edittext_rounded"
-            android:padding="12dp" />
 
         <!-- Botones -->
         <LinearLayout
@@ -49,6 +34,7 @@
                 android:text="Aparkatu"
                 android:backgroundTint="@color/cyan"
                 android:textColor="@android:color/white" />
+
 
             <Button
                 android:id="@+id/btnAtzera"

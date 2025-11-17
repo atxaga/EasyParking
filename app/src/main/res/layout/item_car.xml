@@ -7,9 +7,13 @@
     android:layout_marginHorizontal="12dp"
     app:cardCornerRadius="20dp"
     app:cardElevation="8dp"
-    android:backgroundTint="@android:color/white">
+
+    android:backgroundTint="@android:color/white"
+    android:foreground="?attr/selectableItemBackground"
+    >
 
     <LinearLayout
+        android:id="@+id/carLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
