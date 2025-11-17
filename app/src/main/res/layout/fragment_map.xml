@@ -8,4 +8,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <!-- Botón mi ubicación (como el de Google Maps) -->
+    <ImageButton
+        android:id="@+id/btnMyLocation"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="120dp"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/circle_white"
+        android:src="@android:drawable/ic_menu_mylocation"
+        android:elevation="8dp"
+        android:contentDescription="Centrar en mi ubicación"
+        android:scaleType="centerInside"
+        android:tint="#4285F4" />
+
 </FrameLayout>
