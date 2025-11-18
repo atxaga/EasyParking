@@ -9,11 +9,17 @@ Aparkaleku eremu bakoitza (sektorea) poligono baten bidez bistaratzen da mapan.
 Aplikazioak honako aukera hauek eskaintzen ditu:
 
 ✔ Aparkaleku guneak mapan erakutsi
+
 ✔ Zenbat plaza libre dauden jakin
+
 ✔ Datuak automatikoki eguneratu Firestoretik
+
 ✔ Erabiltzaileak zein gunean aparkatzen duen gordetzea
+
 ✔ Mapan erdiguneko mira bidez gunea automatikoki antzematea
+
 ✔ Erabiltzailearen posizio erreala erakustea (GPS)
+
 ✔ Aparkatzeko prozesua erraztea
 
 🔵 2. Mapa (OSMDroid + OpenStreetMap)
@@ -21,9 +27,13 @@ Aplikazioak honako aukera hauek eskaintzen ditu:
 Maparen ezaugarriak:
 
 ✔ Zum eta scrolla
+
 ✔ Erabiltzailearen posizioa puntutxo urdin batekin
+
 ✔ Zehaztasun-zirkulua
+
 ✔ Mapan finko geratzen den mira (“fixed center mode”)
+
 ✔ Sektoreen poligonoak eta etiketak
 
 🟠 3. Firebase Firestore datu-egitura
@@ -52,9 +62,6 @@ usuarioId
 
 zona (aparkatutako gunea)
 
-Honen bidez kalkulatzen da plaza libreen kopurua:
-
-libres = capacidad - coches_en_esa_zona
 
 🟤 4. Sektoreen bistaratzea (poligonoak)
 
@@ -87,7 +94,9 @@ Aplikazioaren funtzionalitaterik bereziena.
 Botoia aktibatzen denean:
 
 ✔ Ikono bat jartzen da maparen erdian
+
 ✔ 40m inguruko zirkulua sortzen da
+
 ✔ Mapa mugitu ahala:
 
 mira beti erdian mantentzen da
@@ -105,9 +114,13 @@ Honek aparkalekua aukeratzeko zehaztasuna handitzen du, poligonoa ukitu beharrik
 Aplikazioak kokapen-baimena eskatzen du eta:
 
 ✔ FusedLocationProviderClient erabiltzen du
+
 ✔ Kokapena 2–4 segundoro eguneratzen du
+
 ✔ Puntutxo urdina mugituz erakusten du
+
 ✔ Zehaztasun-zirkulua marrazten du
+
 ✔ Lehen kokapenarekin mapa erdira eramaten du
 
 
@@ -140,10 +153,15 @@ Kolore eta efektu argiak erabiliz diseinatutako interfazea
 🟣 9. EasyParking-ek zer arazo konpontzen du?
 
 ✔ Aparkalekua aurkitzeko denbora laburtzen du
+
 ✔ Gune bakoitzean zenbat plaza libre dauden jakinarazten du
+
 ✔ Erabiltzailearen aparkatzeak erregistratzen ditu
+
 ✔ Datuak denbora errealean eguneratzen dira
+
 ✔ Maparen bidez esperientzia erraza eta bisuala eskaintzen du
+
 ✔ Ez du hardware fisikorik behar (sensorik, barriketarik)
 
 🟢 ONDORIOA
